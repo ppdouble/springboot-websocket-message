@@ -7,7 +7,7 @@
     }
 ```
 
-**client**
+**client connection**
 
 `var socket = new SockJS('http://127.0.0.1:8080/ppdouble-websocket');`
 
@@ -23,11 +23,11 @@ defining broker
 
 `registry.enableSimpleBroker("/ppdouble-broker");`
 
-**controller**
+**controller: respond the subscription of client**
 
 `@SendTo("/ppdouble-broker/user")`
 
-**client**
+**client subscribe**
 
 `stompClient.subscribe('/ppdouble-broker/user"', function (greetingmessage){}`
 
@@ -37,10 +37,10 @@ defining broker
 
 `registry.setApplicationDestinationPrefixes("/app");`
 
-**controller**
+**controller: receive the request from client*
 
 `@MessageMapping("/user")`
 
-**client**
+**client send message**
 
 `stompClient.send("/app/user", {}, JSON.stringify({'name': $("#name").val()}));`
