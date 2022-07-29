@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket User Message</title>
+    <!-- style -->
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel = "stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <!-- handle messgage -->
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script>
+        var stompClient = null;
+
+        function setConnected(connected) {
+            $("#connect").prop("disabled", connected);
+            $("#disconnect").prop("disabled", !connected);
+            if (connected) {
+                $("#conversation").show();
+            }
+            else {
+                $("#conversation").hide();
+            }
+            $("#userinfo").html("");
+        }
+
+        function connect() {
+            var socket = new SockJS('http://127.0.0.1:8080/ppdouble-websocket');
+            stompClient = Stomp.over(socket);
+            var connectHeaders = {"server":"Springboot/2.6.0;websocket/5.3.13;webjars:{sockjs-client/1.0.2;stomp-websocket/2.3.3;jquery/3.1.1-1}",
+                "accept-version":"1.0.2",
+                "heart-beat":"1000,1000",
+                "version":"1.0.2",
+                "host":"localhost:8080",
+                "login":null,
+                "passcode":null}
+
+            stompClient.connect(connectHeaders, function (frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                var subscribeDestination =  "/ppdouble-broker/user";
+                //put the subscribe function in the connectCallback function, so that it will be called after connected.
+                stompClient.subscribe(subscribeDestination, function (greetingmessage) {
+
+                    if (greetingmessage.body) {
+                        showGreeting(JSON.parse(greetingmessage.body).content);
+                        console.log("greetingmessage.body: " + greetingmessage.body);
+                    } else
+                    {
+                        console.log("got empty message");
+                    }
+                });
+            });
+        }
+
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Disconnected");
+        }
+
+        function sendName() {
+            stompClient.send("/app/user", {}, JSON.stringify({'name': $("#name").val()}));
+        }
+
+        function showGreeting(message) {
+            $("#userinfo").append("<tr><td>" + message + "</td></tr>");
+        }
+
+        $(function () {
+            $("form").on('submit', function (e) {
+                e.preventDefault();
+            });
+            $( "#connect" ).click(function() { connect(); });
+            $( "#disconnect" ).click(function() { disconnect(); });
+            $( "#send" ).click(function() { sendName(); });
+        });
+    </script>
+</head>
+<body>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">WebSocket connection:</label>
+                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">WebSocket connection:</label>
+                    <input id="name" class="form-control" type="text" placeholder="Your name here..."/>
+                    <button id="send" class="btn btn-default" type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        User Info
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="userinfo">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
