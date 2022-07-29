@@ -37,7 +37,7 @@ defining broker
 
 `registry.setApplicationDestinationPrefixes("/app");`
 
-**controller: receive the request from client*
+**controller: receive the request from client**
 
 `@MessageMapping("/user")`
 
