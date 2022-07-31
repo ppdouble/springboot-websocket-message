@@ -25,13 +25,12 @@
         }
 
         function connect() {
-            var socket = new SockJS('http://127.0.0.1:8080/ppdouble-websocket');
+            var socket = new SockJS('/ppdouble-websocket');
             stompClient = Stomp.over(socket);
             var connectHeaders = {"server":"Springboot/2.6.0;websocket/5.3.13;webjars:{sockjs-client/1.0.2;stomp-websocket/2.3.3;jquery/3.1.1-1}",
                 "accept-version":"1.0.2",
                 "heart-beat":"1000,1000",
                 "version":"1.0.2",
-                "host":"localhost:8080",
                 "login":null,
                 "passcode":null}
 

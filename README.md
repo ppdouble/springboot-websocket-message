@@ -44,3 +44,15 @@ defining broker
 **client send message**
 
 `stompClient.send("/app/user", {}, JSON.stringify({'name': $("#name").val()}));`
+
+## packaging
+default `jar`
+
+**packaging**
+```xml
+<packaging>jar</packaging>
+```
+
+**run and change server port by adding flag**
+
+`java -jar target/springboot-websocket-message-0.0.1-SNAPSHOT.jar --server.port=8090 --trace`

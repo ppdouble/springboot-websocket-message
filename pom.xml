@@ -11,6 +11,7 @@
 	<groupId>com.pxample</groupId>
 	<artifactId>springboot-websocket-message</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>springboot-websocket-message</name>
 	<description>springboot-websocket-message project for Spring Boot</description>
 	<properties>
@@ -59,6 +60,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
