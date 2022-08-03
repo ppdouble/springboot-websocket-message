@@ -64,3 +64,5 @@ default `jar`
 [Spring Boot + Websocket Example](https://www.devglan.com/spring-boot/spring-boot-websocket-example)
 
 [Using WebSocket to build an interactive web application](https://spring.io/guides/gs/messaging-stomp-websocket/)
+
+[WebSocket Support](https://docs.spring.io/spring-framework/docs/4.0.1.RELEASE/spring-framework-reference/html/websocket.html)
