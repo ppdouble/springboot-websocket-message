@@ -37,7 +37,7 @@
             stompClient.connect(connectHeaders, function (frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
-                var subscribeDestination =  "/ppdouble-broker/user";
+                var subscribeDestination =  "/ppdouble-topic/user";
                 //put the subscribe function in the connectCallback function, so that it will be called after connected.
                 stompClient.subscribe(subscribeDestination, function (greetingmessage) {
 

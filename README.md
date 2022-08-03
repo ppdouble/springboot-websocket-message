@@ -19,17 +19,17 @@ or
 
 **server config**
 
-defining broker 
+registry a broker 
 
-`registry.enableSimpleBroker("/ppdouble-broker");`
+`registry.enableSimpleBroker("/ppdouble-topic");`
 
 **controller: respond the subscription of client**
 
-`@SendTo("/ppdouble-broker/user")`
+`@SendTo("/ppdouble-topic/user")`
 
 **client subscribe**
 
-`stompClient.subscribe('/ppdouble-broker/user"', function (greetingmessage){}`
+`stompClient.subscribe('/ppdouble-topic/user"', function (greetingmessage){}`
 
 ## send
 
@@ -56,3 +56,11 @@ default `jar`
 **run and change server port by adding flag**
 
 `java -jar target/springboot-websocket-message-0.0.1-SNAPSHOT.jar --server.port=8090 --trace`
+
+## Ref
+
+[Using Spring Boot for WebSocket Implementation with STOMP](https://www.toptal.com/java/stomp-spring-boot-websocket)
+
+[Spring Boot + Websocket Example](https://www.devglan.com/spring-boot/spring-boot-websocket-example)
+
+[Using WebSocket to build an interactive web application](https://spring.io/guides/gs/messaging-stomp-websocket/)

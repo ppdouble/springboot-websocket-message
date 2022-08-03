@@ -14,7 +14,7 @@ public class UserController {
 
 
     @MessageMapping("/user")
-    @SendTo("/ppdouble-broker/user") // the client will subscribe /ppdouble-broker/user
+    @SendTo("/ppdouble-topic/user") // the client will subscribe /ppdouble-broker/user
     public UserResponse getUser(User user) {
         return new UserResponse("Hello, " + user.getName());
     }

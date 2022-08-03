@@ -17,8 +17,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        // registry a broker which is also a topic
-        registry.enableSimpleBroker("/ppdouble-broker");
+        // registry a broker
+        registry.enableSimpleBroker("/ppdouble-topic");
         // the client send to destination like /app/user will respond by MessageMapping("/user")
         registry.setApplicationDestinationPrefixes("/app");
     }
